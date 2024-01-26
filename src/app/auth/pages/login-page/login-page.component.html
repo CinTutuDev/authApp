@@ -4,7 +4,14 @@
   autocomplete="off"
   (ngSubmit)="login()"
 >
-  <span class="login100-form-title p-b-49"> Login </span>
+  <span class="login100-form-title p-b-49" style="color: blueviolet;">
+    Login
+    <img
+      src="assets/images/acceso.png"
+      alt="Descripción de la imagen"
+      width="45"
+    />
+  </span>
 
   <div class="wrap-input100 m-b-23">
     <span class="label-input100">Correo</span>
@@ -33,7 +40,11 @@
   <div class="container-login100-form-btn">
     <div class="wrap-login100-form-btn">
       <div class="login100-form-bgbtn"></div>
-      <button [disabled]="myForm.invalid" class="login100-form-btn" type="submit">
+      <button
+        [disabled]="myForm.invalid"
+        class="login100-form-btn"
+        type="submit"
+      >
         Login
       </button>
     </div>
