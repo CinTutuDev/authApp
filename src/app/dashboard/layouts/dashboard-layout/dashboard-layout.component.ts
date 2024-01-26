@@ -9,9 +9,13 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 export class DashboardLayoutComponent {
   private authServices = inject(AuthService);
 
-  public user = computed(()=> this.authServices.currentUser())
+  public user = computed(() => this.authServices.currentUser());
 
- /*  get user() {
+  /*  get user() {
     return this.authServices.currentUser();
   } */
+
+  onLogout() {
+    this.authServices.logout();
+  }
 }

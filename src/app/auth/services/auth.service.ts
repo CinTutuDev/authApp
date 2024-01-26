@@ -2,7 +2,7 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environments';
 import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
-import { AuthStatus, CheckTokenResponse, Login, User } from '../interfaces';
+import { AuthStatus, CheckTokenResponse, Login, Register, User } from '../interfaces';
 @Injectable({
   providedIn: 'root',
 })
@@ -36,13 +36,38 @@ export class AuthService {
     );
   }
 
+
+/*   singup(name:string, email:string, password:string): Observable<boolean> {
+    const url = `${this.baseUrl}/auth/register`;
+    const body = {name, email, password};
+
+    return this.http.post<Register>(url, body)
+      .pipe(
+        map(({user, token}) => this.setAuthentication(user, token)),
+        catchError(err => throwError(() => err.error.message))
+    );
+} */
+register( name: string, email: string, password: string ): Observable<Register>{
+
+  const url = `${ this.baseUrl }/auth/register`;
+  const body = { name, email, password };
+
+  return this.http.post<Register>( url, body  )
+    .pipe(
+      catchError( err => throwError( () => err.error.message))
+    )
+
+}
+
   checkAuthStatus(): Observable<boolean> {
     const url = `${this.baseUrl}/auth/check-token`;
     const token = localStorage.getItem('token');
 
     if (!token) {
-      /*  this.logout(); */
-      return of(false);
+       this.logout();
+      {
+        return of(false);
+      }
     }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -54,5 +79,11 @@ export class AuthService {
         return of(false);
       })
     );
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this._currentUser.set(null);
+    this._authStatus.set(AuthStatus.notAuthenticated);
   }
 }
