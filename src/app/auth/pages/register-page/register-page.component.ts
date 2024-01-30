@@ -14,9 +14,9 @@ export class RegisterPageComponent {
   private router = inject(Router);
 
   public myForm: FormGroup = this.formB.group({
-    name: ['tutu', [Validators.required, Validators.minLength(2)]],
-    email: ['CinTutuDev@gmail.com', [Validators.required, Validators.email]],
-    password: ['789456', [Validators.required, Validators.minLength(6)]],
+    name: ['', [Validators.required, Validators.minLength(2)]],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
   register() {
